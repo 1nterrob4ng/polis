@@ -864,6 +864,56 @@ function handle_PUT_conversations(
         fields.link_url = req.p.link_url;
       }
 
+      // Theme customization fields
+      // Try to get from either req.p or req.body (depending on middleware setup)
+      const getField = (field: string) => {
+        return !_.isUndefined((req.p as any)[field])
+          ? (req.p as any)[field]
+          : !_.isUndefined((req.body as any)[field])
+            ? (req.body as any)[field]
+            : undefined;
+      };
+
+      logger.info('[Theme Debug] req.p keys:', Object.keys(req.p));
+      logger.info('[Theme Debug] req.body keys:', req.body ? Object.keys(req.body) : 'no body');
+      logger.info('[Theme Debug] theme_primary_color value:', getField('theme_primary_color'));
+
+      const themePrimaryColor = getField('theme_primary_color');
+      if (!_.isUndefined(themePrimaryColor)) {
+        logger.info('[Theme Debug] Setting theme_primary_color to:', themePrimaryColor);
+        (fields as any).theme_primary_color = themePrimaryColor;
+      }
+
+      const themeTextColor = getField('theme_text_color');
+      if (!_.isUndefined(themeTextColor)) {
+        (fields as any).theme_text_color = themeTextColor;
+      }
+
+      const themeBackgroundColor = getField('theme_background_color');
+      if (!_.isUndefined(themeBackgroundColor)) {
+        (fields as any).theme_background_color = themeBackgroundColor;
+      }
+
+      const themeButtonColor = getField('theme_button_color');
+      if (!_.isUndefined(themeButtonColor)) {
+        (fields as any).theme_button_color = themeButtonColor;
+      }
+
+      const themeFontFamily = getField('theme_font_family');
+      if (!_.isUndefined(themeFontFamily)) {
+        (fields as any).theme_font_family = themeFontFamily;
+      }
+
+      const themeGoogleFontsUrl = getField('theme_google_fonts_url');
+      if (!_.isUndefined(themeGoogleFontsUrl)) {
+        (fields as any).theme_google_fonts_url = themeGoogleFontsUrl;
+      }
+
+      const themeHideElements = getField('theme_hide_elements');
+      if (!_.isUndefined(themeHideElements)) {
+        (fields as any).theme_hide_elements = themeHideElements;
+      }
+
       ifDefinedSet("subscribe_type", req.p, fields);
 
       const q = sql_conversations

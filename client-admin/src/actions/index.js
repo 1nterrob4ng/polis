@@ -242,6 +242,9 @@ const updateConversationData = (conversationData, field, value) => {
   data[field] = value
   const bodyData = Object.assign({}, conversationData, data)
 
+  console.log('[Theme Debug] Updating conversation field:', field, '=', value)
+  console.log('[Theme Debug] Full body data:', bodyData)
+
   return PolisNet.polisPut('/api/v3/conversations', bodyData)
 }
 

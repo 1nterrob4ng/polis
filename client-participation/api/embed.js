@@ -74,7 +74,16 @@
       // This is here in case we add other auth providers (Google, etc), you can preemptively disable them by setting this to false.
       auth_opt_allow_3rdparty: d.getAttribute("data-auth_opt_allow_3rdparty"), // default true
       dwok: d.getAttribute("data-dwok"),
-      topic: d.getAttribute("data-topic")
+      topic: d.getAttribute("data-topic"),
+
+      // Theme customization (overrides conversation config)
+      theme_primary_color: d.getAttribute("data-theme_primary_color"),
+      theme_text_color: d.getAttribute("data-theme_text_color"),
+      theme_background_color: d.getAttribute("data-theme_background_color"),
+      theme_button_color: d.getAttribute("data-theme_button_color"),
+      theme_font_family: d.getAttribute("data-theme_font_family"),
+      theme_google_fonts_url: d.getAttribute("data-theme_google_fonts_url"),
+      hide_elements: d.getAttribute("data-hide_elements")
     };
   }
 
@@ -142,6 +151,15 @@
     appendIfPresent("dwok");
 
     appendIfPresent("topic");
+
+    // Theme customization parameters
+    appendIfPresent("theme_primary_color");
+    appendIfPresent("theme_text_color");
+    appendIfPresent("theme_background_color");
+    appendIfPresent("theme_button_color");
+    appendIfPresent("theme_font_family");
+    appendIfPresent("theme_google_fonts_url");
+    appendIfPresent("hide_elements");
 
     if (paramStrings.length) {
       src += "?" + paramStrings.join("&");

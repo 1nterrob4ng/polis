@@ -5,6 +5,7 @@ var preloadHelper = require("./util/preloadHelper");
 
 var $ = require("jquery");
 var _ = require("lodash");
+var themeManager = require("./util/themeManager");
 
 require("../vis2/vis2"); // This is to initialise the 'window' object
 var Backbone = require("backbone");
@@ -291,6 +292,14 @@ uidPromise = CurrentUserModel.update();
 
 preloadHelper.firstConvPromise.then(
   function () {
+    // Apply theme customization if configured
+    try {
+      var conversationData = window.preload.firstConv || {};
+      var embedParams = Utils.decodeParams(encodedParams) || {};
+      themeManager.applyTheme(conversationData, embedParams);
+    } catch (themeError) {
+      console.error("[Main] Error applying theme:", themeError);
+    }
     PostMessageUtils.postInitEvent("ok");
   },
   function (error) {

@@ -173,6 +173,14 @@ export interface ConversationInfo {
   auth_opt_allow_3rdparty?: boolean;
   created?: number;
   modified?: number;
+  // Theme customization fields
+  theme_primary_color?: string;
+  theme_text_color?: string;
+  theme_background_color?: string;
+  theme_button_color?: string;
+  theme_font_family?: string;
+  theme_google_fonts_url?: string;
+  theme_hide_elements?: string;
   [key: string]: any;
 }
 
@@ -251,6 +259,14 @@ export type ConversationType = {
   limit?: number;
   parent_url?: string;
   auth_opt_allow_3rdparty?: boolean;
+  // Theme customization fields
+  theme_primary_color?: string;
+  theme_text_color?: string;
+  theme_background_color?: string;
+  theme_button_color?: string;
+  theme_font_family?: string;
+  theme_google_fonts_url?: string;
+  theme_hide_elements?: string;
 };
 
 export type ParticipantOption = {

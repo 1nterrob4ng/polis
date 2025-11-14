@@ -166,6 +166,183 @@ const ConversationConfig = () => {
         [EXPERIMENTAL FEATURE] Participants can see the &quot;This comment is important&quot;
         checkbox
       </CheckboxField>
+
+      <Heading
+        as="h6"
+        sx={{
+          fontSize: [1, null, 2],
+          lineHeight: 'body',
+          my: [3, null, 4]
+        }}>
+        Theme Customization
+      </Heading>
+
+      <Text sx={{ display: 'block', mb: [3], fontStyle: 'italic', color: 'textSecondary' }}>
+        Customize colors, fonts, and visibility of UI elements. Changes apply to embedded
+        conversations without redeployment.
+      </Text>
+
+      <Box sx={{ mb: [3] }}>
+        <Text sx={{ display: 'block', mb: [2] }}>Primary Color</Text>
+        <input
+          type="color"
+          style={{
+            display: 'block',
+            width: '100px',
+            height: '40px',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+          data-testid="theme-primary-color"
+          onBlur={(e) => handleStringValueChange('theme_primary_color', e.target.value)}
+          onChange={(e) => handleConfigInputTyping('theme_primary_color', e.target.value)}
+          value={conversationData.theme_primary_color || '#03a9f4'}
+        />
+        <Text sx={{ fontSize: [0], color: 'textSecondary', mt: [1] }}>
+          Brand color for links and primary actions
+        </Text>
+      </Box>
+
+      <Box sx={{ mb: [3] }}>
+        <Text sx={{ display: 'block', mb: [2] }}>Text Color</Text>
+        <input
+          type="color"
+          style={{
+            display: 'block',
+            width: '100px',
+            height: '40px',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+          data-testid="theme-text-color"
+          onBlur={(e) => handleStringValueChange('theme_text_color', e.target.value)}
+          onChange={(e) => handleConfigInputTyping('theme_text_color', e.target.value)}
+          value={conversationData.theme_text_color || '#000000'}
+        />
+        <Text sx={{ fontSize: [0], color: 'textSecondary', mt: [1] }}>Main text color</Text>
+      </Box>
+
+      <Box sx={{ mb: [3] }}>
+        <Text sx={{ display: 'block', mb: [2] }}>Background Color</Text>
+        <input
+          type="color"
+          style={{
+            display: 'block',
+            width: '100px',
+            height: '40px',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+          data-testid="theme-background-color"
+          onBlur={(e) => handleStringValueChange('theme_background_color', e.target.value)}
+          onChange={(e) => handleConfigInputTyping('theme_background_color', e.target.value)}
+          value={conversationData.theme_background_color || '#ffffff'}
+        />
+        <Text sx={{ fontSize: [0], color: 'textSecondary', mt: [1] }}>
+          Page background color
+        </Text>
+      </Box>
+
+      <Box sx={{ mb: [3] }}>
+        <Text sx={{ display: 'block', mb: [2] }}>Button Color</Text>
+        <input
+          type="color"
+          style={{
+            display: 'block',
+            width: '100px',
+            height: '40px',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+          data-testid="theme-button-color"
+          onBlur={(e) => handleStringValueChange('theme_button_color', e.target.value)}
+          onChange={(e) => handleConfigInputTyping('theme_button_color', e.target.value)}
+          value={conversationData.theme_button_color || '#03a9f4'}
+        />
+        <Text sx={{ fontSize: [0], color: 'textSecondary', mt: [1] }}>
+          Button and action color
+        </Text>
+      </Box>
+
+      <Box sx={{ mb: [3] }}>
+        <Text sx={{ display: 'block', mb: [2] }}>Font Family</Text>
+        <input
+          sx={{
+            display: 'block',
+            fontFamily: 'body',
+            fontSize: [2],
+            width: ['100%', '100%', '35em'],
+            maxWidth: ['100%', '100%', '35em'],
+            borderRadius: 2,
+            padding: [2],
+            border: '1px solid',
+            borderColor: 'mediumGray'
+          }}
+          data-testid="theme-font-family"
+          placeholder='e.g., "Roboto, sans-serif"'
+          onBlur={(e) => handleStringValueChange('theme_font_family', e.target.value)}
+          onChange={(e) => handleConfigInputTyping('theme_font_family', e.target.value)}
+          value={conversationData.theme_font_family || ''}
+        />
+        <Text sx={{ fontSize: [0], color: 'textSecondary', mt: [1] }}>
+          Font family name (e.g., &quot;Roboto, sans-serif&quot;)
+        </Text>
+      </Box>
+
+      <Box sx={{ mb: [3] }}>
+        <Text sx={{ display: 'block', mb: [2] }}>Google Fonts URL (Optional)</Text>
+        <input
+          sx={{
+            display: 'block',
+            fontFamily: 'body',
+            fontSize: [2],
+            width: ['100%', '100%', '35em'],
+            maxWidth: ['100%', '100%', '35em'],
+            borderRadius: 2,
+            padding: [2],
+            border: '1px solid',
+            borderColor: 'mediumGray'
+          }}
+          data-testid="theme-google-fonts-url"
+          placeholder="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700"
+          onBlur={(e) => handleStringValueChange('theme_google_fonts_url', e.target.value)}
+          onChange={(e) => handleConfigInputTyping('theme_google_fonts_url', e.target.value)}
+          value={conversationData.theme_google_fonts_url || ''}
+        />
+        <Text sx={{ fontSize: [0], color: 'textSecondary', mt: [1] }}>
+          URL to load custom fonts from Google Fonts
+        </Text>
+      </Box>
+
+      <Box sx={{ mb: [3] }}>
+        <Text sx={{ display: 'block', mb: [2] }}>Hidden UI Elements</Text>
+        <input
+          sx={{
+            display: 'block',
+            fontFamily: 'body',
+            fontSize: [2],
+            width: ['100%', '100%', '35em'],
+            maxWidth: ['100%', '100%', '35em'],
+            borderRadius: 2,
+            padding: [2],
+            border: '1px solid',
+            borderColor: 'mediumGray'
+          }}
+          data-testid="theme-hide-elements"
+          placeholder='e.g., "footer,logo,help_text"'
+          onBlur={(e) => handleStringValueChange('theme_hide_elements', e.target.value)}
+          onChange={(e) => handleConfigInputTyping('theme_hide_elements', e.target.value)}
+          value={conversationData.theme_hide_elements || ''}
+        />
+        <Text sx={{ fontSize: [0], color: 'textSecondary', mt: [1] }}>
+          Comma-separated list of elements to hide. Options: footer, logo, help_text, stats,
+          visualization, comment_form, voting, donate_banner
+        </Text>
+      </Box>
     </Box>
   )
 }

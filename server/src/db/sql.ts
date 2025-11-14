@@ -40,6 +40,13 @@ const sql_conversations: any = sql.define({
     "auth_needed_to_write",
     "auth_opt_allow_3rdparty",
     "treevite_enabled",
+    "theme_primary_color",
+    "theme_text_color",
+    "theme_background_color",
+    "theme_button_color",
+    "theme_font_family",
+    "theme_google_fonts_url",
+    "theme_hide_elements",
   ],
 });
 
