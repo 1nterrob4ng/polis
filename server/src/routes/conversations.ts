@@ -764,6 +764,7 @@ function handle_PUT_conversations(
       conversation_id: string;
       context: any;
     };
+    body?: any;
   },
   res: any
 ) {
