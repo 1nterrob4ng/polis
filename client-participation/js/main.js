@@ -293,18 +293,78 @@ uidPromise = CurrentUserModel.update();
 preloadHelper.firstConvPromise.then(
   function () {
     // Apply theme customization if configured
+    // Wrap in try-catch to ensure page load isn't blocked by theme errors
     try {
-      var conversationData = window.preload.firstConv || {};
-      var embedParams = Utils.decodeParams(encodedParams) || {};
-      themeManager.applyTheme(conversationData, embedParams);
+      var conversationData = window.preload && window.preload.firstConv ? window.preload.firstConv : {};
+      
+      // Get embed params from both sources:
+      // 1. Encoded path params (ep1_...) - legacy format
+      // 2. Query params (?theme_primary_color=...) - used by embed.js
+      var embedParams = {};
+      
+      // Parse encoded path params (if any)
+      try {
+        if (encodedParams && Utils && typeof Utils.decodeParams === 'function') {
+          embedParams = Utils.decodeParams(encodedParams) || {};
+        }
+      } catch (e) {
+        // encodedParams might not be valid, that's ok
+        console.debug("[Main] Could not decode encoded params:", e);
+      }
+      
+      // Parse query params (embed.js uses these)
+      // Do this here to ensure Utils is fully loaded
+      try {
+        if (window.location && window.location.search && Utils && typeof Utils.parseQueryParams === 'function') {
+          var queryParams = Utils.parseQueryParams(window.location.search);
+          // Query params override encoded params
+          embedParams = Object.assign({}, embedParams, queryParams);
+        }
+      } catch (e) {
+        console.debug("[Main] Could not parse query params:", e);
+        // Continue with whatever embedParams we have
+      }
+      
+      // Debug logging (only if theme data exists)
+      if (conversationData.theme_primary_color || embedParams.theme_primary_color) {
+        console.log("[Theme] Applying theme:", {
+          conversation: {
+            theme_primary_color: conversationData.theme_primary_color,
+            theme_text_color: conversationData.theme_text_color,
+            theme_background_color: conversationData.theme_background_color,
+          },
+          embed: {
+            theme_primary_color: embedParams.theme_primary_color,
+            theme_text_color: embedParams.theme_text_color,
+            theme_background_color: embedParams.theme_background_color,
+          }
+        });
+      }
+      
+      // Only apply theme if themeManager is available
+      if (themeManager && typeof themeManager.applyTheme === 'function') {
+        themeManager.applyTheme(conversationData, embedParams);
+      }
     } catch (themeError) {
+      // Log error but don't block page load
       console.error("[Main] Error applying theme:", themeError);
     }
-    PostMessageUtils.postInitEvent("ok");
+    
+    // Always post init event, even if theme application failed
+    try {
+      PostMessageUtils.postInitEvent("ok");
+    } catch (e) {
+      console.warn("[Main] Error posting init event:", e);
+    }
   },
   function (error) {
     console.error("[Main] firstConvPromise rejected with error:", error);
-    PostMessageUtils.postInitEvent("error");
+    // Still try to post error event
+    try {
+      PostMessageUtils.postInitEvent("error");
+    } catch (e) {
+      console.warn("[Main] Error posting error event:", e);
+    }
   }
 );
 
